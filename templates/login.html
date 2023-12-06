@@ -1,0 +1,64 @@
+<style>
+body {
+  background-color: rgba(0, 213, 213, 0.4) !important;
+}
+
+    .xxl-3 {
+  background-color: rgba(0, 12, 12, 0.4);
+}
+
+.login-form {
+  width: 400px;
+  border: 1px solid #ddd;
+  padding: 50px;
+  margin: 0;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  background-color: #eef;
+  border-radius: 10px !important;
+}
+
+
+
+.login-submit {
+  background-color: #111 !important;
+  border: 1px solid #111 !important;
+  text-transform: uppercase !important;
+}
+
+.login-submit:hover{
+    background-color: #333 !important;
+}
+
+</style>
+
+{% include 'header.html' %}
+<div class="login-form rounded">
+    <form action="/login" method="POST">
+        {% csrf_token %}
+      <div class="mb-3">
+        <!--          <h1 class="center">Login</h1> -->
+        <div class="input-group mb-3">
+          <span class="input-group-text"><i class="fa fa-user-circle"></i></span>
+          <input type="text" placeholder="enter username" name="username" class="form-control" aria-label="Amount (to the nearest dollar)">
+        </div>
+  
+        <div class="mb-3">
+          <div class="input-group mb-3">
+            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+            <input type="password" placeholder="enter password" name="password" class="form-control" aria-label="Amount (to the nearest dollar)">
+          </div>
+  
+        </div>
+  
+        <div class="mb-3">
+          <input type="submit" value="Login" class="form-control btn btn-primary login-submit">
+        </div>
+
+        <a href="register" class="text-center">Not a User, yet? Register</a>
+      </div>
+    </form>
+  </div>
+

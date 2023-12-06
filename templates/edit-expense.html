@@ -1,0 +1,28 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+<form action="/edit-expense/{{expense.id}}" method="POST" class="ba-form">
+    {% csrf_token %}
+    <h3>Edit Expense</h3>
+    <input type="text" name="expense-name" value="{{expense.name}}" class="ba-text-input">
+    <input type="text" name="expense-amount" value="{{expense.amount}}" pattern="[0-9]*" class="ba-text-input">
+    <!-- <input type="text" name="budget-name" value="{{budget.name}}" class="ba-text-input"> -->
+
+    <!-- <input type="text" name="amount" value="{{budget.amount}}" class="ba-text-input"> -->
+    <select name="budget-from" class="form-select" id="" class="ba-text-input">
+        {% for budget in budgets %}
+          <option value="{{budget.id}}">{{budget}}</option>
+        {% endfor %}
+    </select>
+
+    <select name="transaction-type" id="" class="ba-text-input">
+          <option value="Transfer">Transfer</option>
+          <option value="Cash">Cash</option>
+          <option value="POS">POS</option>
+    </select>
+
+    <!-- <input type="text" name="budget-name" value="{{budget.name}}" class="ba-text-input"> -->
+
+    <input type="submit" class="ba-button">
+</form>

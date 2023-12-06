@@ -1,0 +1,83 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<h2>Total spend for this income: {{total_spend}}</h2> <a href="/">Back to Dashboard</a>
+
+<div class="content">
+    <div class="content-container">
+        <div class="form-floating">
+            <form action="sort-expenses" method="post" id="income-select">
+                {% csrf_token %}
+            <select class="form-select" id="floating-income-select" name="income-select" onchange="submitForm();" aria-label="Floating label select example">
+              {% for income in incomesOnExpensesPage %}
+                <option value="{{income.id}}">{{income}}</option>
+              {% endfor %}
+            </select>
+            <label for="floatingSelect">Select Income</label>
+
+            <input type="submit" value="Show">
+        </form>
+          </div>
+          
+        <div class="content-budgets">
+            <h2>Expenses under &#8358;2000</h2>
+           
+            {% for exp in expensesless2000 %}
+            <div class="data">
+                <a href="budget/{{budget.id}}">{{exp.name}}: &#8358;{{exp.amount}}</a> 
+                <div class="data-functions">
+                    <a class="ba-button" href="edit-budget/{{budget.id}}">Edit</a> <a class="delete-icon" href="delete-budget/{{budget.id}}">&times;</a> 
+                </div>
+            </div>
+             {% endfor %}
+            
+           
+       </div>
+        <div class="content-incomes">
+            <h2>Expenses under &#8358;4500</h2>
+
+            {% for exp in expensesless4500 %} 
+            <div class="data">
+                <a href="budget/{{budget.id}}">{{exp.name}}: &#8358;{{exp.amount}}</a> 
+                <div class="data-functions">
+                    <a class="ba-button" href="edit-budget/{{budget.id}}">Edit</a> <a class="delete-icon" href="delete-budget/{{budget.id}}">&times;</a> 
+                </div>
+            </div>
+               
+            {% endfor %}
+        </div>
+        <div class="content-expenses">
+            <a href="expenses"><h2>Expenses over &#8358;4500</h2></a>
+            
+            
+            {% for expense in expensesmore4500 reversed %}
+            <div class="data">
+                <a href="budget/{{budget.id}}">{{expense.name}}: &#8358;{{expense.amount}}</a> 
+                <div class="data-functions">
+                    <a class="ba-button" href="edit-budget/{{budget.id}}">Edit</a> <a class="delete-icon" href="delete-budget/{{budget.id}}">&times;</a> 
+                </div>
+            </div>
+              
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% for filter in filtered_expenses reversed %}
+    <h3>{{filter.name}}</h3>
+{% endfor %}
+{% for expense in expenses reversed %}
+    <h3>{{expense.name}}</h3>
+    <p><span>&rarr; </span>{{expense.amount}}</p>
+    <p>Budget deducted from: {{expense.budget_deducted_from}} entered on {{expense.entry_date}}</p>
+    <!-- <p>Transaction type: {{expense.transaction_type}}</p> -->
+    <p></p>
+{% endfor %}
+
+<script>
+    const select = document.querySelector('#floating-income-select')
+    const formTosubmit = document.querySelector('#income-select')
+
+    function submitForm(){
+        formTosubmit.submit();
+    }
+</script>

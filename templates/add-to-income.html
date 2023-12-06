@@ -1,0 +1,11 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+<form action="/addto-income/{{income.id}}" method="POST" class="ba-form">
+    {% csrf_token %}
+    <h3>Add to Income</h3>
+    <input type="text" name="amount" pattern="[0-9]*" class="ba-text-input">
+    
+    <input type="submit" class="ba-button">
+</form>

@@ -1,0 +1,60 @@
+<style>
+     .form{
+  background-color: #eef;
+  padding: 40px;
+  width: 400px;
+  border-radius: 7px;
+  border: 1px solid #ddd;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+body{
+  background-color: rgba(0, 213, 213, 0.4);
+}
+
+.ba-submit{
+  color: #0d6efd !important;
+  border: 1px solid #0d6efd !important;
+  background-color: #fff !important;
+  text-transform: uppercase !important;
+}
+</style>
+{% include 'header.html' %}
+
+{% for message in messages %}
+    <div class="mb-3">
+        <h2 class="display-5">{{message}}</h2>
+    </div>
+{% endfor %}
+<div class="form">
+    <div class="container">
+      <form action="/add-budget" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="" class="form-label">Budget name:</label>
+          <input type="text" name="budget-name" class="form-control" placeholder="Budget Name">
+      </div>
+        
+        <div class="mb-3">
+          <label for="" class="form-label">Budget amount:</label>
+          <input type="text" name="budget-amount" class="form-control" pattern="[0-9]*" placeholder="Budget Amount">
+      </div>
+        
+        <div class="mb-3">
+          <label for="" class="form-label">Select Income:</label>
+          <select name="income_from" class="form-select" id="">
+            {% for income in incomes %}
+              <option value="{{income.id}}">{{income}}</option>
+            {% endfor %}
+        </select>
+        </div>
+      
+        <div class="mb-3">
+           <input type="submit" name="budget-submit" class="form-control btn btn-primary ba-submit" value="Add Budget">
+      </div>
+      </form>
+    </div>
+  </div>

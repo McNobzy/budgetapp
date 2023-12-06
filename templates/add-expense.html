@@ -1,0 +1,80 @@
+<style>
+body {
+  background-color: rgba(0, 213, 213, 0.4);
+}
+
+.container {
+  border: 1px solid #ccc;
+}
+
+.col {
+  /*   border: 1px solid #ccc; */
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.form {
+  background-color: #eef;
+  padding: 40px;
+  width: 700px;
+  border-radius: 7px;
+  border: 1px solid #ddd;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+@media only screen and (max-width: 1200px) {
+  .row {
+    display: block;
+  }
+}
+
+
+</style>
+
+{% include 'header.html' %}
+<div class="form">
+    <form action="/add-expense" method="POST">
+        {% csrf_token %}
+      <div class="row">
+        <div class="col">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" name="name" placeholder="Expense Name">
+            <label for="floatingInput">Name</label>
+          </div>
+
+          <div class="form-floating">
+            <input type="text" class="form-control" id="floatingPassword" pattern="[0-9]*" name="amount" placeholder="Expensen amount" required>
+            <label for="floatingPassword">Amount</label>
+          </div>
+          <br />
+          <div class="form-floating">
+            <select class="form-select" id="floatingSelect" name="transaction_type" aria-label="Floating label select example">
+              <option value="Transfer">Transfer</option>
+              <option value="Cash">Cash</option>
+              <option value="POS">POS</option>
+            </select>
+            <label for="floatingSelect">Select Transfer type</label>
+          </div>
+          <br>
+
+          <div class="form-floating">
+            <select class="form-select" id="floatingSelect" name="budget" aria-label="Floating label select example">
+              <!-- <option selected>Select budget</option> -->
+              {% for budget in budgets %}
+              <option value="{{budget.id}}">{{budget.name}} - {{budget.income_from}}</option>
+              {% endfor %}
+            </select>
+            <label for="floatingSelect">Select Budget</label>
+          </div>
+          <br>
+          <div class="mb-3">
+            <input type="submit" value="ENTER EXPENSE" class="btn btn-primary form-control form-control-lg">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
